@@ -1,0 +1,6 @@
+{
+  "name": "VeloKey Colombia Game Store",
+  "description": "Tu tienda favorita de claves y licencias digitales de videojuegos (Steam, Epic, Xbox, PSN, Nintendo) en Pesos Colombianos (COP) con canje instantáneo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
