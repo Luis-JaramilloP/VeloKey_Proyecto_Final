@@ -41,7 +41,9 @@ import {
   RefreshCw,
   MessageSquare,
   Send,
-  Edit2
+  Edit2,
+  BookOpen,
+  Headphones
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Game, CartItem, Seller, Order, OrderItem } from "./types";
@@ -166,6 +168,9 @@ export default function App() {
 
   // System Notification AlertToast
   const [toastMessage, setToastMessage] = useState<{ type: "success" | "info" | "error"; text: string } | null>(null);
+
+  // Footer Modal State
+  const [activeFooterTab, setActiveFooterTab] = useState<"manual" | "terms" | "support" | null>(null);
 
   // Get combined reviews for a seller name and a game title
   const getSellerReviews = (sellerName: string, gameTitle: string, gameId: string, sellerId: string) => {
@@ -2892,9 +2897,24 @@ export default function App() {
             <span>© 2026 VELOKEY. Clon Sandbox de G2A / Eneba en React y Express.</span>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="hover:text-neutral-300">Manual de Activación</span>
-            <span className="hover:text-neutral-300">Términos y Condiciones</span>
-            <span className="hover:text-neutral-300">Soporte Tecnológico 24/7</span>
+            <button 
+              onClick={() => setActiveFooterTab("manual")}
+              className="hover:text-purple-400 text-neutral-500 font-medium transition-colors bg-transparent border-none cursor-pointer text-xs outline-none"
+            >
+              Manual de Activación
+            </button>
+            <button 
+              onClick={() => setActiveFooterTab("terms")}
+              className="hover:text-purple-400 text-neutral-500 font-medium transition-colors bg-transparent border-none cursor-pointer text-xs outline-none"
+            >
+              Términos y Condiciones
+            </button>
+            <button 
+              onClick={() => setActiveFooterTab("support")}
+              className="hover:text-purple-400 text-neutral-500 font-medium transition-colors bg-transparent border-none cursor-pointer text-xs outline-none"
+            >
+              Soporte Tecnológico 24/7
+            </button>
           </div>
         </div>
       </footer>
@@ -3467,6 +3487,218 @@ export default function App() {
               </motion.div>
             </div>
 
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* OVERLAY DRAWER / MODAL: FOOTER LINK DETAILS */}
+      <AnimatePresence>
+        {activeFooterTab && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            
+            {/* Soft dark blurred backdrop click to dismiss */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveFooterTab(null)}
+              className="absolute inset-0 bg-black/85 backdrop-blur-md cursor-zoom-out"
+            />
+
+            {/* Modal Body scrollable */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-xl bg-[#0f0a1d] border border-[#27213d] rounded-3xl p-5 md:p-6 overflow-y-auto max-h-[90vh] z-10 shadow-2xl shadow-purple-950/20 text-left"
+            >
+              
+              {/* Dismiss core action button */}
+              <button
+                onClick={() => setActiveFooterTab(null)}
+                className="absolute top-4 right-4 p-2 rounded-xl bg-[#201931]/80 hover:bg-[#341b52] hover:text-white text-neutral-400 border border-[#331f4f]/30 transition-colors cursor-pointer"
+              >
+                <X className="w-4.5 h-4.5" />
+              </button>
+
+              {activeFooterTab === "manual" && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 border-b border-[#27213d] pb-3">
+                    <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <BookOpen className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black text-white">Manual de Activación</h3>
+                      <p className="text-xs text-neutral-400">Guía detallada para activar tus juegos digitales paso a paso</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3.5 text-xs text-neutral-300 leading-relaxed max-h-[55vh] overflow-y-auto pr-1">
+                    <div className="p-3 bg-[#130d25] border border-[#27213d] rounded-2xl space-y-2">
+                      <span className="font-mono text-[11px] font-black text-purple-400 block uppercase tracking-wider">Paso 1: Copiar tu clave de activación</span>
+                      <p className="text-neutral-400 text-[11px]">
+                        Una vez finalizado tu pago simulado, dirígete a la pestaña <strong>"Mis Compras"</strong> en la barra superior. Allí verás el listado de tus licencias adquiridas. Haz clic en el botón <strong>"Copiar Clave"</strong> para copiar el serial al portapapeles.
+                      </p>
+                    </div>
+
+                    <div className="p-3 bg-[#130d25] border border-[#27213d] rounded-2xl space-y-2">
+                      <span className="font-mono text-[11px] font-black text-purple-400 block uppercase tracking-wider">Paso 2: Canjear según tu plataforma</span>
+                      <ul className="list-disc list-inside space-y-1.5 text-neutral-400 text-[11px]">
+                        <li>
+                          <strong className="text-white">Steam:</strong> Abre Steam en tu PC, haz clic en el menú <code className="bg-[#201931] px-1.5 py-0.5 rounded text-neutral-300 font-mono text-[10px]">Productos &gt; Activar un producto en Steam...</code>, pega el serial y confirma.
+                        </li>
+                        <li>
+                          <strong className="text-white">Epic Games:</strong> Abre el lanzador de Epic Games, haz clic en tu perfil en la esquina superior derecha y selecciona <code className="bg-[#201931] px-1.5 py-0.5 rounded text-neutral-300 font-mono text-[10px]">Canjear código</code>.
+                        </li>
+                        <li>
+                          <strong className="text-white">Xbox / Microsoft:</strong> En tu consola Xbox, ve a la Tienda Microsoft Store y presiona el botón <code className="bg-[#201931] px-1.5 py-0.5 rounded text-neutral-300 font-mono text-[10px]">Canjear código</code>. En PC, usa la app de Xbox o entra a redeem.microsoft.com.
+                        </li>
+                        <li>
+                          <strong className="text-white">PlayStation:</strong> Entra a la PlayStation Store desde tu consola o app móvil, ve al menú de opciones de la parte superior derecha y selecciona <code className="bg-[#201931] px-1.5 py-0.5 rounded text-neutral-300 font-mono text-[10px]">Canjear códigos</code>.
+                        </li>
+                        <li>
+                          <strong className="text-white">Nintendo Switch:</strong> Abre la Nintendo eShop desde el menú HOME de tu consola, selecciona tu cuenta, haz clic en <code className="bg-[#201931] px-1.5 py-0.5 rounded text-neutral-300 font-mono text-[10px]">Canjear código</code> en la barra izquierda e introduce el serial.
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-3 bg-amber-950/15 border border-amber-900/35 rounded-2xl flex gap-2">
+                      <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <strong className="text-amber-400 text-[11px]">¿Problemas con la Región?</strong>
+                        <p className="text-neutral-400 text-[11px]">
+                          Asegúrate de comprobar la región de compatibilidad de la oferta comprada. Si es GLOBAL se activará sin restricciones. Si es de una región específica (ej. USA), requerirás que la ubicación de facturación de tu cuenta coincida con esa región.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeFooterTab === "terms" && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 border-b border-[#27213d] pb-3">
+                    <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black text-white">Términos y Condiciones</h3>
+                      <p className="text-xs text-neutral-400">Contrato de términos del marketplace VeloKey Colombia</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3.5 text-xs text-neutral-300 leading-relaxed max-h-[55vh] overflow-y-auto pr-1">
+                    <p className="text-[11px] text-neutral-400">
+                      Bienvenido a VeloKey. Al acceder, registrarse o realizar transacciones en nuestra plataforma de comercio electrónico sandbox, usted acepta y se compromete a respetar plenamente las siguientes cláusulas y políticas:
+                    </p>
+
+                    <div className="space-y-1">
+                      <strong className="text-white text-[11px]">1. Naturaleza del Servicio y Cuentas Ficticias</strong>
+                      <p className="text-[11px] text-neutral-400">
+                        VeloKey opera como un marketplace simulado (sandbox) estructurado con fines educativos y de demostración de flujo comercial en Colombia. Los saldos, billeteras electrónicas, llaves seriales y métodos de pago aquí listados no corresponden a transacciones financieras reales. Las claves mostradas son generadas aleatoriamente por algoritmos seguros de prueba y no deben considerarse material comercial real.
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-white text-[11px]">2. Garantía VeloKey Shield de Llaves Digitales</strong>
+                      <p className="text-[11px] text-neutral-400">
+                        Ofrecemos garantía de activación instantánea al 100% sobre todos los códigos comprados a través de nuestros vendedores premium. Si una llave resulta defectuosa, inactiva o presenta un error regional no especificado en la ficha técnica, se aplicará el reembolso íntegro a su saldo de billetera virtual.
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-white text-[11px]">3. Política del Vendedor</strong>
+                      <p className="text-[11px] text-neutral-400">
+                        Como vendedor de VeloKey, usted es responsable de establecer tarifas justas y competitivas, garantizar que cuenta con suficiente stock ficticio de licencias y responder oportunamente en el soporte. Está estrictamente prohibido simular valoraciones de mala fe para desprestigiar a la competencia.
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <strong className="text-white text-[11px]">4. Limitación de Responsabilidad</strong>
+                      <p className="text-[11px] text-neutral-400">
+                        Los desarrolladores y propietarios del proyecto VeloKey no se hacen responsables de pérdidas resultantes del mal uso de la plataforma o errores tipográficos por parte del comprador al ingresar datos de pago simulados.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeFooterTab === "support" && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 border-b border-[#27213d] pb-3">
+                    <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <Headphones className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black text-white">Soporte Tecnológico 24/7</h3>
+                      <p className="text-xs text-neutral-400">Centro de ayuda y radicado de tickets simulados</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 text-xs text-neutral-300 leading-relaxed max-h-[55vh] overflow-y-auto pr-1">
+                    <div className="grid grid-cols-2 gap-3 text-[11px]">
+                      <div className="p-3.5 bg-[#130d25] border border-[#27213d] rounded-2xl text-center space-y-1">
+                        <strong className="text-white block font-bold">Tiempo de Respuesta Promedio</strong>
+                        <span className="font-mono text-emerald-400 text-sm font-black">&lt; 3 minutos</span>
+                        <p className="text-[9px] text-neutral-500">Agentes simulados en vivo 24/7</p>
+                      </div>
+                      <div className="p-3.5 bg-[#130d25] border border-[#27213d] rounded-2xl text-center space-y-1">
+                        <strong className="text-white block font-bold">Tasa de Resolución</strong>
+                        <span className="font-mono text-purple-400 text-sm font-black">99.7% exitosa</span>
+                        <p className="text-[9px] text-neutral-500">Garantía VeloKey Shield</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-[11px] font-bold text-neutral-100 uppercase tracking-wide">Preguntas Frecuentes:</h4>
+                      <div className="space-y-2">
+                        <div className="p-2.5 bg-[#130d25] border border-[#27213d]/45 rounded-xl space-y-1">
+                          <strong className="text-white text-[11px]">¿Mi saldo simulado de $600.000 COP expirará?</strong>
+                          <p className="text-neutral-400 text-[10px]">No, tu billetera virtual se guarda localmente en el navegador y puedes recargarla en cualquier momento si te quedas sin saldo simulado.</p>
+                        </div>
+                        <div className="p-2.5 bg-[#130d25] border border-[#27213d]/45 rounded-xl space-y-1">
+                          <strong className="text-white text-[11px]">¿Cómo informo de un vendedor inactivo?</strong>
+                          <p className="text-neutral-400 text-[10px]">Puedes radicar un caso de soporte a continuación indicando el nombre del vendedor y el título del juego.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Support Contact Form Simulation */}
+                    <div className="border-t border-[#27213d]/60 pt-3.5 space-y-3">
+                      <h4 className="text-[11px] font-bold text-neutral-100 uppercase tracking-wide">Radicar un Ticket Ficticio:</h4>
+                      <div className="space-y-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <input 
+                            type="text" 
+                            placeholder="Tu nombre completo"
+                            className="bg-black border border-[#27213d] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 text-[11px] w-full"
+                          />
+                          <input 
+                            type="email" 
+                            placeholder="Tu correo electrónico" 
+                            className="bg-black border border-[#27213d] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 text-[11px] w-full"
+                          />
+                        </div>
+                        <textarea 
+                          rows={2.5}
+                          placeholder="Describe brevemente el inconveniente..." 
+                          className="bg-black border border-[#27213d] rounded-xl p-2.5 text-white outline-none focus:border-purple-500 text-[11px] w-full resize-none"
+                        />
+                        <button
+                          onClick={() => {
+                            showToast("success", "📨 ¡Ticket enviado con éxito! Nuestro equipo simulado te responderá en breve.");
+                            setActiveFooterTab(null);
+                          }}
+                          className="w-full py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold rounded-xl transition-all shadow-md active:scale-98 cursor-pointer text-center text-xs"
+                        >
+                          Enviar Solicitud de Soporte
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </motion.div>
           </div>
         )}
       </AnimatePresence>

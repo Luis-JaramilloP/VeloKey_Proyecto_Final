@@ -1,5 +1,37 @@
 [
   {
+    "id": "resident-evil-requiem-251",
+    "title": "Resident Evil Requiem",
+    "genre": [
+      "Acción"
+    ],
+    "platform": "Xbox",
+    "region": "LATAM",
+    "isActivatedInLocalRegion": true,
+    "rating": 5,
+    "basePrice": 220500,
+    "discount": 20,
+    "coverUrl": "https://i.3djuegos.com/juegos/20426/resident_evil_9_requiem/fotos/ficha/resident_evil_9_requiem-5965848.webp",
+    "screenshots": [
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop"
+    ],
+    "developer": "Capcom LTD",
+    "publisher": "Compañía Distribuidora",
+    "description": "Réquiem para los muertos. Pesadilla para los vivos. Prepárate para escapar de la muerte a través de una experiencia que te helará hasta lo más profundo de tu ser.",
+    "sellers": [
+      {
+        "id": "s-resident-evil-requiem-251-default",
+        "name": "VeloKey_Premium",
+        "rating": 99.9,
+        "positiveReviews": 120,
+        "price": 176400,
+        "stock": 35,
+        "deliveryType": "INSTANT"
+      }
+    ],
+    "releaseYear": 2026
+  },
+  {
     "id": "elden-ring",
     "title": "Elden Ring: Shadow of the Erdtree Edition",
     "genre": [
@@ -340,7 +372,7 @@
     "rating": 4.8,
     "basePrice": 279900,
     "discount": 20,
-    "coverUrl": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2109330/library_600x900_2x.jpg",
+    "coverUrl": "https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png",
     "screenshots": [
       "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2109330/library_hero.jpg",
       "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2109330/header.jpg"
@@ -351,21 +383,21 @@
     "releaseYear": 2023,
     "sellers": [
       {
+        "id": "s-spy-2",
+        "name": "HeroicFlares",
+        "rating": 95.2,
+        "positiveReviews": 1202,
+        "price": 223920,
+        "stock": 2,
+        "deliveryType": "INSTANT"
+      },
+      {
         "id": "s-spy-1",
         "name": "US_SpecialistKeys",
         "rating": 99.8,
         "positiveReviews": 54101,
         "price": 219900,
         "stock": 40,
-        "deliveryType": "INSTANT"
-      },
-      {
-        "id": "s-spy-2",
-        "name": "HeroicFlares",
-        "rating": 95.2,
-        "positiveReviews": 1202,
-        "price": 215900,
-        "stock": 2,
         "deliveryType": "INSTANT"
       }
     ]
@@ -384,7 +416,7 @@
     "rating": 4.9,
     "basePrice": 239900,
     "discount": 18,
-    "coverUrl": "https://images.unsplash.com/photo-1566577134770-3d85bb3a9cc4?q=80&w=600&auto=format&fit=crop",
+    "coverUrl": "https://i.pinimg.com/736x/8e/b7/b7/8eb7b7b6b417c44bc66d98318604926c.jpg",
     "screenshots": [
       "https://images.unsplash.com/photo-1605901309584-818e25960a8f?q=80&w=800&auto=format&fit=crop"
     ],
@@ -398,7 +430,7 @@
         "name": "MushroomKingdom_Gifts",
         "rating": 99.6,
         "positiveReviews": 8940,
-        "price": 195900,
+        "price": 196718,
         "stock": 22,
         "deliveryType": "INSTANT"
       }
@@ -638,7 +670,7 @@
     "rating": 4.9,
     "basePrice": 299900,
     "discount": 10,
-    "coverUrl": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop",
+    "coverUrl": "https://i.3djuegos.com/juegos/16711/the_legend_of_zelda_breath_of_the_wild_2/fotos/ficha/the_legend_of_zelda_breath_of_the_wild_2-5953268.webp",
     "screenshots": [
       "https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=800&auto=format&fit=crop"
     ],
@@ -652,7 +684,7 @@
         "name": "HyruleKeys_ES",
         "rating": 99.8,
         "positiveReviews": 8430,
-        "price": 269900,
+        "price": 269910,
         "stock": 15,
         "deliveryType": "INSTANT"
       }
@@ -1230,7 +1262,7 @@
     "rating": 4.3,
     "basePrice": 279900,
     "discount": 40,
-    "coverUrl": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344530/library_600x900_2x.jpg",
+    "coverUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4gUJ8FQQ4t0bIVkCWyD5Lb2S-a04jKaMsiA&s",
     "screenshots": [
       "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2344530/header.jpg"
     ],

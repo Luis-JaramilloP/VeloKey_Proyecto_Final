@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -13,8 +14,31 @@ app.use(express.json());
 import fs from "fs";
 import { GAMES_DATABASE } from "./gamesDatabase.js";
 
-const DB_FILE = path.join(process.cwd(), "persistent_games.json");
-const ORDERS_FILE = path.join(process.cwd(), "persistent_orders.json");
+// Determinar el directorio raíz del proyecto de forma absoluta y robusta
+const getProjectRootDir = () => {
+  try {
+    const filename = fileURLToPath(import.meta.url);
+    const dir = path.dirname(filename);
+    // Si se está ejecutando desde la carpeta dist/ (producción), subimos un nivel
+    if (path.basename(dir) === "dist") {
+      return path.join(dir, "..");
+    }
+    return dir;
+  } catch (error) {
+    // Fallback para entornos CommonJS (si se define __dirname)
+    if (typeof __dirname !== "undefined") {
+      if (path.basename(__dirname) === "dist") {
+        return path.join(__dirname, "..");
+      }
+      return __dirname;
+    }
+    return process.cwd();
+  }
+};
+
+const ROOT_DIR = getProjectRootDir();
+const DB_FILE = path.join(ROOT_DIR, "persistent_games.json");
+const ORDERS_FILE = path.join(ROOT_DIR, "persistent_orders.json");
 
 let CURRENT_GAMES: any[];
 if (fs.existsSync(DB_FILE)) {
@@ -22,7 +46,7 @@ if (fs.existsSync(DB_FILE)) {
     CURRENT_GAMES = JSON.parse(fs.readFileSync(DB_FILE, "utf-8"));
     console.log(`Cargados ${CURRENT_GAMES.length} videojuegos de forma persistente desde el disco.`);
   } catch (error) {
-    console.error("Error al cargar juegos persistentes, restaurando base por defecto:", error);
+    console.error("Error al cargar juegos persistentes, restaurando base por defecto:", error instanceof Error ? error.stack : error);
     CURRENT_GAMES = JSON.parse(JSON.stringify(GAMES_DATABASE));
   }
 } else {
